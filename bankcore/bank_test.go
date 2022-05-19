@@ -15,3 +15,17 @@ func TestAccount(t *testing.T) {
 		t.Error("can't create an Account object")
 	}
 }
+
+func TestDeposit(t *testing) {
+	account := Account{
+		Customer: Customer{
+			Name:    "John",
+			Address: "Los Angeles, California",
+			Phone:   "(213) 555 0147",
+		},
+		Number:  1001,
+		Balance: 0,
+	}
+
+	account.Deposit(10)
+}
