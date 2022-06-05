@@ -6,7 +6,15 @@ type user struct {
 	name  string
 	email string
 }
+type notifier interface {
+	notify()
+}
 
+type duration int
+
+func (d *duration) pretty() string {
+	return fmt.Sprintf("Duration:%d", *d)
+}
 func main() {
 
 	// var arr1 [2][2]int
@@ -100,19 +108,28 @@ func main() {
 	// fmt.Println(value)
 	// fmt.Println(exists)
 
-	bill := user{"Bill", "bill@email.com"}
-	bill.notify()
+	//值类型和指针类型
+	// bill := user{"Bill", "bill@email.com"}
+	// bill.notify()
 	// bill1 := &user{"Bill", "bill@email.com"}
 	// bill1.changeName("charles")
-	bill.changeName("1111111111")
-	(&bill).changeName("22222")
+	// bill.changeName("1111111111")
+	// (&bill).changeName("22222")
+
+	//接口
+	u := user{"Frank", "bill@email.com"}
+	sendNotification(&u)
 }
 
-func (u user) notify() {
+func (u *user) notify() {
 	fmt.Printf("Sending User Email To %s<%s>\n", u.name, u.email)
 }
 
-func (u *user) changeName(name string) {
-	u.name = name
-	fmt.Printf("Sending User Email To %s<%s>\n", u.name, u.email)
+// func (u *user) changeName(name string) {
+// 	u.name = name
+// 	fmt.Printf("Sending User Email To %s<%s>\n", u.name, u.email)
+// }
+
+func sendNotification(n notifier) {
+	n.notify()
 }
